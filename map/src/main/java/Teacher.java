@@ -3,12 +3,12 @@ import java.util.*;
 
 public class Teacher {
     private String name;
-    private HashMap<Integer, ArrayList<Student>> students;
+    private HashMap<Integer, Set<Student>> students;
 
     public Teacher() {
     }
 
-    public Teacher(String name, HashMap<Integer, ArrayList<Student>> students) {
+    public Teacher(String name, HashMap<Integer, Set<Student>> students) {
         this.name = name;
         this.students = students;
     }
@@ -24,13 +24,11 @@ public class Teacher {
 
     public void addStudent(Student student) {
         if (students.containsKey(student.getAge())) {
-            for (int i : students.keySet()) {
-                if (student.getAge() == i) {
-                    students.get(i).add(student);
-                }
-            }
+             students.get(student.getAge()).add(student);
         } else {
-            students.put(student.getAge(), new ArrayList<>(Collections.singletonList(student)));
+            Set<Student> stu = new HashSet<>();
+            stu.add(student);
+            students.put(student.getAge(), stu);
         }
     }
 }
